@@ -4,7 +4,7 @@ export default function Documents({ onTitleClick }) {
     const [data, setData] = useState({})
 
     useEffect(() => {
-        fetch("http://localhost:1337/documents")
+        fetch("https://jsramverk-editor-sijn20.azurewebsites.net/documents")
         .then(res => res.json())
         .then(data => setData(data))
     }, [])

@@ -22,7 +22,7 @@ export default function TextEditor() {
   const save = (e) => {
       if (e.target[1].value) {
           e.preventDefault();
-          fetch(`http://localhost:1337/documents/${e.target[1].value}`, {
+          fetch(`https://jsramverk-editor-sijn20.azurewebsites.net/documents/${e.target[1].value}`, {
               method: 'PUT',
               headers: {
                   'Accept': 'application/json',
@@ -37,7 +37,7 @@ export default function TextEditor() {
       }
       else {
           e.preventDefault();
-          fetch('http://localhost:1337/documents', {
+          fetch('https://jsramverk-editor-sijn20.azurewebsites.net/documents', {
               method: 'POST',
               headers: {
                   'Accept': 'application/json',
