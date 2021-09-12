@@ -12,7 +12,7 @@ export default function Documents({ onTitleClick }) {
     let allDocs = [];
 
     for (let i = 0; i < data.length; i++) {
-        allDocs.push(<div onClick={() => onTitleClick(data[i].name, data[i].text)}>{data[i].name}</div>);
+        allDocs.push(<div onClick={() => onTitleClick(data[i]._id, data[i].name, data[i].text)}>{data[i].name}</div>);
     }
 
     return (

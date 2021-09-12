@@ -8,50 +8,79 @@ export default function TextEditor() {
     if (editorRef.current) {
       let text = editorRef.current.getContent();
       console.log(text);
-  }
+    }
+  };
+  const empty = () => {
+    if (editorRef.current) {
+      const inputId = document.getElementById('idDoc');
+      inputId.value = "";
+      const inputName = document.getElementById('nameDoc');
+      inputName.value = "";
+      editorRef.current.setContent("");
+    }
   };
   const save = (e) => {
-      if (editorRef.current || e.target[0].value) {
+      if (e.target[1].value) {
+          e.preventDefault();
+          fetch(`http://localhost:1337/documents/${e.target[1].value}`, {
+              method: 'PUT',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  name: e.target[0].value,
+                  text: editorRef.current.getContent(),
+              })
+          });
+          alert("Uppdaterad!");
+      }
+      else {
           e.preventDefault();
           fetch('http://localhost:1337/documents', {
               method: 'POST',
               headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded',
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
               },
               body: JSON.stringify({
                   name: e.target[0].value,
-                  text: editorRef.current.getContent()
+                  text: editorRef.current.getContent(),
               })
           })
           .then( function (response) {
-              alert(response);
-              // console.log(response);
+              alert("Sparat!");
           });
-    }
+      };
   };
-  function showText(name, text) {
+  function showText(docId, name, text) {
       console.log(name);
       console.log(text);
-      const inputName = document.getElementById('nameDoc')
+      const inputId = document.getElementById('idDoc');
+      inputId.value = docId;
+      const inputName = document.getElementById('nameDoc');
       inputName.value = name;
       editorRef.current.setContent(text);
   };
   return (
     <>
     <div className="toolbar">
+        <form onSubmit={save}>
+            <label>Namn på dokument: </label>
+            <input type="text" id="nameDoc" />
+            <label> Dokumentets ID: </label>
+            <input type="text" disabled="disabled" id="idDoc" />
+            <input className="save" type="submit" value="Spara" />
+        </form>
         <button className="log" onClick={log}>Logga</button>
+        <button className="log" onClick={empty}>Ny</button>
     </div>
-    <form onSubmit={save}>
-        <label>Namn på dokument</label><br />
-        <input type="text" id="nameDoc" />
-        <input type="submit" value="Spara" />
-    </form>
       <Editor
         id="myTextarea"
         onInit={(evt, editor) => editorRef.current = editor}
         initialValue=""
         init={{
-          height: 400,
+          height: 300,
           menubar: false,
           plugins: [
             'advlist autolink lists link image charmap print preview anchor',
@@ -65,7 +94,10 @@ export default function TextEditor() {
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         }}
       />
-      < Documents onTitleClick={showText} />
+      <div className="documents">
+      <h3>Välj ett dokument att redigera:</h3>
+        < Documents onTitleClick={showText} />
+      </div>
     </>
   );
 }
