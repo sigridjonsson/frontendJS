@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-export default function GetDocuments() {
+export default function Documents({ onTitleClick }) {
     const [data, setData] = useState({})
 
     useEffect(() => {
-        fetch("/list")
+        fetch("http://localhost:1337/documents")
         .then(res => res.json())
         .then(data => setData(data))
     }, [])
 
     let allDocs = [];
 
-    for (var i = 0; i < data.length; i++) {
-        allDocs += data[i];
+    for (let i = 0; i < data.length; i++) {
+        allDocs.push(<div onClick={() => onTitleClick(data[i].name, data[i].text)}>{data[i].name}</div>);
     }
 
     return (
-        <div>{allDocs}</div>
+        allDocs
     )
 }

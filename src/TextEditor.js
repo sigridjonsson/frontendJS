@@ -1,5 +1,6 @@
 import { React, useRef, useState, useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import Documents from './Documents.js';
 
 export default function TextEditor() {
   const editorRef = useRef(null);
@@ -27,6 +28,13 @@ export default function TextEditor() {
               // console.log(response);
           });
     }
+  };
+  function showText(name, text) {
+      console.log(name);
+      console.log(text);
+      const inputName = document.getElementById('nameDoc')
+      inputName.value = name;
+      editorRef.current.setContent(text);
   };
   return (
     <>
@@ -57,33 +65,7 @@ export default function TextEditor() {
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         }}
       />
-      < GetDocuments />
+      < Documents onTitleClick={showText} />
     </>
   );
-}
-
-
-function GetDocuments() {
-    const [data, setData] = useState({})
-
-    useEffect(() => {
-        fetch("http://localhost:1337/documents")
-        .then(res => res.json())
-        .then(data => setData(data))
-    }, [])
-
-    let allDocs = [];
-
-    for (let i = 0; i < data.length; i++) {
-        allDocs.push(<div onClick={() => doSomething(data[i].text)}>{data[i].name}</div>);
-    }
-
-    return (
-        allDocs
-    )
-}
-
-
-function doSomething(text) {
-    console.log(text);
 }
