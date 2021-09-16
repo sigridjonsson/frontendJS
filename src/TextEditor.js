@@ -1,6 +1,8 @@
-import { React, useRef, useState, useEffect } from 'react';
+import { React, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import Toolbar from './Toolbar.js';
 import Documents from './Documents.js';
+
 
 export default function TextEditor() {
   const editorRef = useRef(null);
@@ -54,8 +56,6 @@ export default function TextEditor() {
       };
   };
   function showText(docId, name, text) {
-      console.log(name);
-      console.log(text);
       const inputId = document.getElementById('idDoc');
       inputId.value = docId;
       const inputName = document.getElementById('nameDoc');
@@ -64,17 +64,7 @@ export default function TextEditor() {
   };
   return (
     <>
-    <div className="toolbar">
-        <form onSubmit={save}>
-            <label>Namn på dokument: </label>
-            <input type="text" id="nameDoc" />
-            <label> Dokumentets ID: </label>
-            <input type="text" disabled="disabled" id="idDoc" />
-            <input className="save" type="submit" value="Spara" />
-        </form>
-        <button className="log" onClick={log}>Logga</button>
-        <button className="log" onClick={empty}>Ny</button>
-    </div>
+    < Toolbar saveText={save} logText={log} emptyEditor={empty} />
       <Editor
         id="myTextarea"
         onInit={(evt, editor) => editorRef.current = editor}
