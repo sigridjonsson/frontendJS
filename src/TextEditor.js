@@ -3,6 +3,11 @@ import { Editor } from '@tinymce/tinymce-react';
 import Toolbar from './Toolbar.js';
 import Documents from './Documents.js';
 
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "https://jsramverk-editor-sijn20.azurewebsites.net/";
+
+const socket = socketIOClient(ENDPOINT);
+
 
 export default function TextEditor() {
   const editorRef = useRef(null);
@@ -61,6 +66,19 @@ export default function TextEditor() {
       const inputName = document.getElementById('nameDoc');
       inputName.value = name;
       editorRef.current.setContent(text);
+      socket.emit("create", docId);
+  };
+  const live = () => {
+    socket.on("doc", (data) => {
+      editorRef.current.setContent(data.html);
+    });
+
+    const inputId = document.getElementById('idDoc');
+    let data = {
+        _id: inputId.value,
+        html: editorRef.current.getContent()
+    };
+    socket.emit("doc", data);
   };
   return (
     <>
@@ -68,6 +86,7 @@ export default function TextEditor() {
       <Editor
         id="myTextarea"
         onInit={(evt, editor) => editorRef.current = editor}
+        onKeyUp={live}
         initialValue=""
         init={{
           height: 300,
