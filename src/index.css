@@ -6,6 +6,12 @@ body {
     margin: 0px;
 }
 
+.currUser {
+    text-align: center;
+    color: #FFB901;
+    font-size: 1.2em;
+}
+
 /* TOOLBAR */
 .toolbar {
     height: 150px;
@@ -71,11 +77,24 @@ label {
 }
 
 
+/* AUTH */
+h2 {
+    color: #0c3a2d;
+}
 
-.login, .register {
-    text-align: center;
-    margin-top: 70px;
+.register {
+    display: inline-block;
+    margin-left: 25%;
+    margin-top: 150px;
     font-size: 1.5em;
+    text-align: center;
+}
+
+.login {
+    display: inline-block;
+    margin-left: 25%;
+    font-size: 1.5em;
+    text-align: center;
 }
 
 .login input[type=email], .login input[type=password], .register input[type=email], .register input[type=password] {
