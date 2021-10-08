@@ -57,7 +57,6 @@ export default class TextEditor extends React.Component {
           alert("Uppdaterad!");
       }
       else {
-        console.log(e.target[2].value);
           e.preventDefault();
           fetch('https://jsramverk-editor-sijn20.azurewebsites.net/documents', {
               method: 'POST',
@@ -186,7 +185,7 @@ export default class TextEditor extends React.Component {
         />
         <div className="documents">
         <h3>Välj ett dokument att redigera:</h3>
-          < Documents currToken={this.state.token} onTitleClick={this.showText} />
+          < Documents currToken={this.state.token} currEmail={this.state.email} onTitleClick={this.showText} />
         </div>
       </>
     );
