@@ -4,6 +4,8 @@ import Toolbar from './Toolbar.js';
 import Documents from './Documents.js';
 import Auth from './Auth.js';
 
+import jsPDF from "jspdf";
+
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "https://jsramverk-editor-sijn20.azurewebsites.net/";
 
@@ -155,13 +157,24 @@ export default class TextEditor extends React.Component {
             }
           })
   };
+  print = () => {
+    const text = this.editorRef.current.getContent();
+    const name = document.getElementById('nameDoc');
+    if (text === "" || name === "") {
+      alert("Namn på dokumentet eller text till dokumentet saknas");
+    } else {
+      const doc = new jsPDF();
+      doc.fromHTML(text, 10, 10)
+      doc.save(name.value);
+    }
+  };
   render() {
     if (this.state.token == null) {
       return <Auth loginUser={this.login} registerUser={this.reg} />
     } 
     return (
       <>
-      < Toolbar saveText={this.save} logText={this.log} emptyEditor={this.empty} />
+      < Toolbar saveText={this.save} logText={this.log} emptyEditor={this.empty} printText={this.print}/>
       <p className="currUser">Inloggad användare: { this.state.email }</p>
         <Editor
           id="myTextarea"

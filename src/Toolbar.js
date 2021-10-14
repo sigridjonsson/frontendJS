@@ -28,7 +28,7 @@ function SelectUser() {
         );
 }
 
-export default function Toolbar({ saveText, logText, emptyEditor }) {
+export default function Toolbar({ saveText, logText, emptyEditor, printText }) {
     return (
         <>
         <div className="toolbar">
@@ -41,9 +41,11 @@ export default function Toolbar({ saveText, logText, emptyEditor }) {
                 <select name="users" id="users" form="docForm">
                 </select>
                 <input className="save" id="saveBtn" type="submit" value="Spara" />
+                {/* <input className="print" id="printBtn" type="submit" value="Skriv ut" /> */}
             </form>
             <button className="log" onClick={logText}>Logga</button>
             <button className="log" onClick={emptyEditor}>Ny</button>
+            <button className="pdf" onClick={printText}>Ladda ned som PDF</button>
         </div>
         < SelectUser />
         </>
