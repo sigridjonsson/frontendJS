@@ -168,6 +168,23 @@ export default class TextEditor extends React.Component {
       doc.save(name.value);
     }
   };
+  sendEmail = (e) => {
+    let that = this;
+    e.preventDefault();
+    fetch('ttps://jsramverk-editor-sijn20.azurewebsites.net/email', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email: e.target[0].value,
+            user: that.state.email,
+        })
+    });
+    alert("Inbjudning skickad till " + e.target[0].value)
+          
+  };
   render() {
     if (this.state.token == null) {
       return <Auth loginUser={this.login} registerUser={this.reg} />
@@ -199,6 +216,13 @@ export default class TextEditor extends React.Component {
         <div className="documents">
         <h3>Välj ett dokument att redigera:</h3>
           < Documents currToken={this.state.token} currEmail={this.state.email} onTitleClick={this.showText} />
+        </div>
+        <div className="sendEmail">
+          <form id="emailForm" onSubmit={this.sendEmail}>
+              <label>Fyll i en mejladress för att bjuda in den: </label><br />
+              <input type="email" id="email" />
+              <input className="send" id="sendBtn" type="submit" value="Skicka" />
+          </form>
         </div>
       </>
     );

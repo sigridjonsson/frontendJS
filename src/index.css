@@ -139,3 +139,27 @@ h2 {
     text-align: center;
     margin-top: 50px;
 }
+
+
+.sendEmail {
+    float: right;
+    margin-top: 50px;
+    margin-right: 20px;
+}
+
+#email {
+    padding: 8px 15px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.send {
+    background-color: #FFB901;
+    border-radius:6px;
+    color: #fff;
+    cursor: pointer;
+    border:none;
+    padding: 10px;
+    width: 60px;
+    margin-left: 10px;
+}

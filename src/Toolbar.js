@@ -41,7 +41,6 @@ export default function Toolbar({ saveText, logText, emptyEditor, printText }) {
                 <select name="users" id="users" form="docForm">
                 </select>
                 <input className="save" id="saveBtn" type="submit" value="Spara" />
-                {/* <input className="print" id="printBtn" type="submit" value="Skriv ut" /> */}
             </form>
             <button className="log" onClick={logText}>Logga</button>
             <button className="log" onClick={emptyEditor}>Ny</button>
