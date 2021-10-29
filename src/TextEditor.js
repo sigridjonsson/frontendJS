@@ -171,7 +171,7 @@ export default class TextEditor extends React.Component {
   sendEmail = (e) => {
     let that = this;
     e.preventDefault();
-    fetch('ttps://jsramverk-editor-sijn20.azurewebsites.net/email', {
+    fetch('https://jsramverk-editor-sijn20.azurewebsites.net/email', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -215,7 +215,7 @@ export default class TextEditor extends React.Component {
         />
         <div className="documents">
         <h3>Välj ett dokument att redigera:</h3>
-          < Documents currToken={this.state.token} currEmail={this.state.email} onTitleClick={this.showText} />
+          < Documents currToken={this.state.token} onTitleClick={this.showText} />
         </div>
         <div className="sendEmail">
           <form id="emailForm" onSubmit={this.sendEmail}>
